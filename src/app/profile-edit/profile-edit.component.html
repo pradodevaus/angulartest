@@ -1,0 +1,82 @@
+<div class="container">
+    <h1>Create Profile</h1>
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" formControlName="firstName">
+        <div *ngIf="getFC('firstName').errors && (getFC('firstName').dirty || getFC('firstName').touched)" class="alert alert-danger">
+          <div [hidden]="!getFC('firstName').errors.required">
+            First name is required
+          </div>
+          <div [hidden]="!getFC('firstName').errors.maxlength">
+            First name should contain maximum {{getFC('firstName').errors?.maxlength?.requiredLength}} characters
+          </div>
+          <div [hidden]="!getFC('firstName').errors.pattern">
+            First name should contain only alphabhets
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+        <div *ngIf="getFC('lastName').errors && (getFC('lastName').dirty || getFC('lastName').touched)" class="alert alert-danger">
+          <div [hidden]="!getFC('lastName').errors.required">
+            Last name is required
+          </div>
+          <div [hidden]="!getFC('lastName').errors.maxlength">
+            Last name should contain maximum {{getFC('lastName').errors?.maxlength?.requiredLength}} characters
+          </div>
+          <div [hidden]="!getFC('lastName').errors.pattern">
+            Last name should contain only alphabhets
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email">
+        <div *ngIf="getFC('email').errors && (getFC('email').dirty || getFC('email').touched)" class="alert alert-danger">
+          <div [hidden]="!getFC('email').errors.required">
+            Email is required
+          </div>
+          <div [hidden]="!getFC('email').errors.email">
+            Email is invalid
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">DOB</label>
+        <input type="date" class="form-control" id="dob" formControlName="dob">
+        <div *ngIf="getFC('dob').errors && (getFC('dob').dirty || getFC('dob').touched)" class="alert alert-danger">
+            <div [hidden]="!getFC('dob').errors.required">
+              DOB is required
+            </div>
+            <div [hidden]="!getFC('dob').errors.pattern">
+              DOB should be in dd/mm/yyyy format
+            </div>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="dob">Select your location</label>
+          <input type="hidden" class="form-control" id="loc" required formControlName="loc">
+          <div *ngIf="getFC('loc').errors" class="alert alert-danger">
+              <div [hidden]="!getFC('loc').errors.required">
+                Location is not selected on a map
+              </div>
+            </div>
+          <agm-map [latitude]="initMapCoords.lat" [longitude]="initMapCoords.lng" (mapClick)="chooseLoc($event.coords)">
+            <agm-marker *ngIf="locMarker" [latitude]="locMarker.lat" [longitude]="locMarker.lng"></agm-marker>
+          </agm-map>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-success col-md-2 col-xs-12">Save</button>
+        </div>
+
+    </form>
+    <!-- <div>{{ profileForm.value | json }}</div> -->
+  </div>

@@ -1,0 +1,33 @@
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+          <h1>Your Profile</h1>
+
+          <ul class="list-group">
+            <li class="list-group-item">
+              <strong>First Name</strong>: {{profileData?.firstName}}</li>
+            <li class="list-group-item">
+              <strong>Last Name</strong>: {{profileData?.lastName}}</li>
+            <li class="list-group-item">
+              <strong>Email</strong>: {{profileData?.email}}</li>
+            <li class="list-group-item">
+              <strong>DOB</strong>: {{profileData?.dob | date : 'dd-MM-yyyy'}}</li>
+              <li class="list-group-item">
+                  <strong>Your location</strong>:
+                  <agm-map [latitude]="profileData.geoLoc.lat" [longitude]="profileData.geoLoc.lng">
+                      <agm-marker [latitude]="profileData.geoLoc.lat" [longitude]="profileData.geoLoc.lng"></agm-marker>
+                    </agm-map>  
+              </li>  
+          </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <a routerLink="/edit" class="btn btn-primary">Edit profile</a>
+        <a class="btn btn-danger" (click)="deleteProfile()">Delete profile</a>
+      </div>
+    </div>
+
+  </div>
